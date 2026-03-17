@@ -1,0 +1,73 @@
+{
+  "projectType": "ai-ml",
+  "projectName": "autoresearch",
+  "projectDescription": "An autonomous AI agent framework that runs overnight LLM pretraining experiments on a single GPU, iterating on train.py to minimize validation bits-per-byte without human intervention.",
+  "theme": "palm",
+  "primaryColor": "#7c7c7c",
+  "lightColor": "#0a0a0a",
+  "darkColor": "#c7c7c7",
+  "navigation": {
+    "tabs": [
+      {
+        "tab": "Documentation",
+        "groups": [
+          {
+            "group": "Get Started",
+            "pages": [
+              "introduction",
+              "quickstart"
+            ]
+          },
+          {
+            "group": "Concepts",
+            "pages": [
+              "concepts/how-it-works",
+              "concepts/training-loop",
+              "concepts/evaluation-metric"
+            ]
+          },
+          {
+            "group": "Guides",
+            "pages": [
+              "guides/running-the-agent",
+              "guides/program-md",
+              "guides/smaller-compute",
+              "guides/logging-results"
+            ]
+          },
+          {
+            "group": "Reference",
+            "pages": [
+              "reference/train-py",
+              "reference/prepare-py",
+              "reference/hyperparameters",
+              "reference/model-architecture"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "keyFeatures": [
+    "Autonomous overnight experimentation — runs ~100 experiments while you sleep",
+    "Fixed 5-minute time budget per experiment for fair cross-run comparison",
+    "val_bpb (bits per byte) metric that is vocab-size independent",
+    "Single file agent scope — agent only modifies train.py",
+    "Muon + AdamW hybrid optimizer with NorMuon variance reduction",
+    "Flash Attention 3 with sliding window patterns (SSSL)",
+    "agent-driven git branching and result logging to results.tsv",
+    "program.md as a lightweight human-authored research org specification"
+  ],
+  "publicApiSurface": [
+    "uv run prepare.py — one-time data download and BPE tokenizer training",
+    "uv run train.py — single 5-minute training run, outputs val_bpb summary",
+    "prepare.py: MAX_SEQ_LEN, TIME_BUDGET, EVAL_TOKENS constants",
+    "prepare.py: Tokenizer class (from_directory, encode, decode, get_vocab_size)",
+    "prepare.py: make_dataloader(tokenizer, B, T, split) — BOS-aligned best-fit packing dataloader",
+    "prepare.py: evaluate_bpb(model, tokenizer, batch_size) — fixed evaluation metric",
+    "train.py: GPTConfig dataclass (sequence_len, vocab_size, n_layer, n_head, n_kv_head, n_embd, window_pattern)",
+    "train.py: GPT model (forward, init_weights, setup_optimizer, estimate_flops)",
+    "train.py: MuonAdamW optimizer (combined Muon for matrices, AdamW for embeddings/scalars)",
+    "train.py hyperparameters: DEPTH, ASPECT_RATIO, HEAD_DIM, WINDOW_PATTERN, TOTAL_BATCH_SIZE, EMBEDDING_LR, MATRIX_LR, SCALAR_LR, WEIGHT_DECAY, WARMUP_RATIO, WARMDOWN_RATIO"
+  ]
+}
